@@ -57,9 +57,18 @@ h1 {
 img {
     max-width: 100%;
     object-fit: cover;
+    line-height: 0;
+    font-size: 0;
 }
 
 .single-slider-container {
     width: 800px;
-    height: 500px;
+    height: 400px;
+    overflow: hidden;
+}
+.single-slider-container ul {
+    height: 100%;
+}
+.single-slider-container ul li {
+    height: 100%;
 }
