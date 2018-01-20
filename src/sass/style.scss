@@ -63,21 +63,23 @@ img {
 }
 
 .single-slider-container {
-  max-width: 100%;
-  width: 800px;
-  height: 400px;
-  //overflow: hidden;
+  width: 400px;
+  margin: 0 auto;
+  overflow: hidden;
 
   ul {
-    position: relative;
-    height: 100%;
+    width: 2400px;
+    height: 200px;
 
     li {
-      position: absolute;
-      top: 0;
-      left: 0;
+      width: 400px;
+      position: relative;
+      float: left;
       height: 100%;
+      transform: translate(-400px);
       overflow: hidden;
+      transition-duration: 1s;
+      transition-property: transform;
     }
   }
 }
