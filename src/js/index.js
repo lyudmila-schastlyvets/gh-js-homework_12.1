@@ -20,6 +20,18 @@ document.addEventListener('DOMContentLoaded', function(event) {
         container.querySelectorAll('li')[i].addEventListener('webkitTransitionEnd', transitionCompleted, true);
         container.querySelectorAll('li')[i].addEventListener('oTransitionEnd', transitionCompleted, true);
         container.querySelectorAll('li')[i].addEventListener('MSTransitionEnd', transitionCompleted, true);
+        container.querySelectorAll('li')[i].addEventListener('mousedown', function (event) {
+            console.log('test');
+        }, true);
+        container.querySelectorAll('li')[i].addEventListener('mouseup', function (event) {
+            console.log('test UP');
+        }, true);
+        container.querySelectorAll('li')[i].addEventListener('touchstart', function (event) {
+            console.log('test');
+        }, true);
+        container.querySelectorAll('li')[i].addEventListener('touchend', function (event) {
+            console.log('test UP');
+        }, true);
     }
 
     document.getElementById('slider-1').addEventListener('click', function (event) {
