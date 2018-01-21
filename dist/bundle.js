@@ -1,1 +1,210 @@
-!function(e){function t(r){if(n[r])return n[r].exports;var l=n[r]={i:r,l:!1,exports:{}};return e[r].call(l.exports,l,l.exports,t),l.l=!0,l.exports}var n={};t.m=e,t.c=n,t.d=function(e,n,r){t.o(e,n)||Object.defineProperty(e,n,{configurable:!1,enumerable:!0,get:r})},t.n=function(e){var n=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(n,"a",n),n},t.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},t.p="",t(t.s=0)}([function(e,t,n){"use strict";function r(){var e=document.getElementById("slider-1"),t=e.clientWidth;if(!0===a){a=!1,i--,-1===i&&(i=c-1);for(var n=i%c,r=0;r<c;r++){var l=e.querySelectorAll("li")[r];l.style.opacity="1",l.style.transform="translate("+(s[r]+t)+"px)",s[r]=s[r]+t}var o=e.querySelectorAll("li")[n];o.style.transform="translate("+(s[n]-t*c)+"px)",o.style.opacity="0",s[n]=s[n]-t*c}}function l(){var e=document.getElementById("slider-1"),t=e.clientWidth;if(!0===a){a=!1,i++;for(var n=(i-1)%c,r=0;r<c;r++){var l=e.querySelectorAll("li")[r];l.style.opacity="1",l.style.transform="translate("+(s[r]-t)+"px)",s[r]=s[r]-t}var o=e.querySelectorAll("li")[n];o.style.transform="translate("+(s[n]+t*c)+"px)",o.style.opacity="0",s[n]=s[n]+t*c}}Object.defineProperty(t,"__esModule",{value:!0});var o=n(1),i=(n.n(o),0),c=0,s=[],a=!0,u=function(){a=!0};document.addEventListener("DOMContentLoaded",function(e){var t=document.getElementById("slider-1"),n=t.clientWidth;c=t.querySelectorAll("li").length;for(var o=0;o<c;o++)s[o]=-n,t.querySelectorAll("li")[o].addEventListener("transitionend",u,!0),t.querySelectorAll("li")[o].addEventListener("webkitTransitionEnd",u,!0),t.querySelectorAll("li")[o].addEventListener("oTransitionEnd",u,!0),t.querySelectorAll("li")[o].addEventListener("MSTransitionEnd",u,!0),t.querySelectorAll("li")[o].addEventListener("mousedown",function(e){console.log("test")},!0),t.querySelectorAll("li")[o].addEventListener("mouseup",function(e){console.log("test UP")},!0),t.querySelectorAll("li")[o].addEventListener("touchstart",function(e){console.log("test")},!0),t.querySelectorAll("li")[o].addEventListener("touchend",function(e){console.log("test UP")},!0);document.getElementById("slider-1").addEventListener("click",function(e){e.offsetX>200?r():l()})})},function(e,t){}]);
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__sass_style_scss__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__sass_style_scss___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__sass_style_scss__);
+
+
+var index = 0;
+var amount = 0;
+var currTransl = [];
+var translationComplete = true;
+var transitionCompleted = function() {
+    translationComplete = true;
+};
+var startPoint  = 0;
+var direction;
+var move = false;
+
+document.addEventListener('DOMContentLoaded', function() {
+    var container = document.getElementById('slider-1');
+    var containerWidth = container.clientWidth;
+    amount = container.querySelectorAll('li').length;
+    for (var i = 0; i < amount; i++) {
+        currTransl[i] = -containerWidth;
+        container.querySelectorAll('li')[i].addEventListener('transitionend', transitionCompleted, true);
+        container.querySelectorAll('li')[i].addEventListener('webkitTransitionEnd', transitionCompleted, true);
+        container.querySelectorAll('li')[i].addEventListener('oTransitionEnd', transitionCompleted, true);
+        container.querySelectorAll('li')[i].addEventListener('MSTransitionEnd', transitionCompleted, true);
+        container.querySelectorAll('li')[i].addEventListener('mousedown', function (event) {
+            var field = this.getBoundingClientRect();
+            startPoint = event.offsetX + field.x;
+        }, true);
+        container.querySelectorAll('li')[i].addEventListener('mousemove', function (event) {
+            var movePoint = event.clientX;
+            direction = startPoint - movePoint;
+            if (startPoint) {
+                this.style.left = - direction + 'px';
+                if (this.previousElementSibling === null) {
+                    var lastStyle = container.querySelector('ul').lastElementChild.style;
+                    lastStyle.opacity = '1';
+                    lastStyle.left = - direction + 'px';
+                } else {
+                    this.previousElementSibling.style.opacity = '1';
+                    this.previousElementSibling.style.left = - direction + 'px';
+                }
+                if (this.nextElementSibling === null) {
+                    var firstStyle = container.querySelector('ul').firstElementChild.style;
+                    firstStyle.opacity = '1';
+                    firstStyle.left = - direction + 'px';
+                } else {
+                    this.nextElementSibling.style.left = - direction + 'px';
+                }
+            }
+            move = true;
+        }, true);
+        container.querySelectorAll('li')[i].addEventListener('mouseup', function () {
+            if (move) {
+                startPoint = 0;
+                for (var j = 0; j < amount; j++) {
+                    var li = container.querySelectorAll('li')[j];
+                    li.style.left = 0;
+                }
+                if (direction > 0) {
+                    left();
+                } else {
+                    right();
+                }
+                direction = 0;
+                move = false;
+            }
+        }, true);
+        container.querySelectorAll('li')[i].addEventListener('touchstart', function (event) {
+
+        }, true);
+        container.querySelectorAll('li')[i].addEventListener('touchend', function (event) {
+
+        }, true);
+    }
+
+    document.getElementById('slider-1').addEventListener('click', function (event) {
+        if (event.offsetX > 200) {
+            right();
+        } else {
+            left();
+        }
+    });
+
+});
+
+function right () {
+    var container = document.getElementById('slider-1');
+    var containerWidth = container.clientWidth;
+    if (translationComplete === true) {
+        translationComplete = false;
+        index--;
+        if (index === -1) {
+            index = amount - 1;
+        }
+        var outerIndex = (index) % amount;
+        for (var i = 0; i < amount; i++) {
+            var li = container.querySelectorAll('li')[i];
+            li.style.opacity = '1';
+            li.style.transform = 'translate('+(currTransl[i]+containerWidth)+'px)';
+            currTransl[i] = currTransl[i] + containerWidth;
+        }
+
+        var outerLi = container.querySelectorAll('li')[outerIndex];
+        outerLi.style.transform = 'translate('+(currTransl[outerIndex]-containerWidth*(amount))+'px)';
+        outerLi.style.opacity = '0';
+        currTransl[outerIndex] = currTransl[outerIndex]-containerWidth*(amount);
+    }
+}
+
+function left () {
+    var container = document.getElementById('slider-1');
+    var containerWidth = container.clientWidth;
+    if (translationComplete === true) {
+        translationComplete = false;
+        index++;
+        var outerIndex = (index-1) % amount;
+        for (var i = 0; i < amount; i++) {
+            var li = container.querySelectorAll('li')[i];
+            li.style.opacity = '1';
+            li.style.transform = 'translate('+(currTransl[i]-containerWidth)+'px)';
+            currTransl[i] = currTransl[i]-containerWidth;
+        }
+        var outerLi = container.querySelectorAll('li')[outerIndex];
+        outerLi.style.transform = 'translate('+(currTransl[outerIndex]+containerWidth*(amount))+'px)';
+        outerLi.style.opacity = '0';
+        currTransl[outerIndex] = currTransl[outerIndex]+containerWidth*(amount);
+    }
+}
+
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ })
+/******/ ]);

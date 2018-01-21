@@ -60,16 +60,20 @@ img {
   object-fit: cover;
   line-height: 0;
   font-size: 0;
+  pointer-events: none;
+  user-select: none;
 }
 
 .single-slider-container {
   width: 400px;
   margin: 0 auto;
   overflow: hidden;
+  border: 1px solid;
 
   ul {
     width: 2400px;
     height: 200px;
+    position: relative;
 
     li {
       width: 400px;

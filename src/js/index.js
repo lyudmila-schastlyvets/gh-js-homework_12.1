@@ -4,13 +4,14 @@ var index = 0;
 var amount = 0;
 var currTransl = [];
 var translationComplete = true;
-
-
 var transitionCompleted = function() {
     translationComplete = true;
 };
+var startPoint  = 0;
+var direction;
+var move = false;
 
-document.addEventListener('DOMContentLoaded', function(event) {
+document.addEventListener('DOMContentLoaded', function() {
     var container = document.getElementById('slider-1');
     var containerWidth = container.clientWidth;
     amount = container.querySelectorAll('li').length;
@@ -21,16 +22,53 @@ document.addEventListener('DOMContentLoaded', function(event) {
         container.querySelectorAll('li')[i].addEventListener('oTransitionEnd', transitionCompleted, true);
         container.querySelectorAll('li')[i].addEventListener('MSTransitionEnd', transitionCompleted, true);
         container.querySelectorAll('li')[i].addEventListener('mousedown', function (event) {
-            console.log('test');
+            var field = this.getBoundingClientRect();
+            startPoint = event.offsetX + field.x;
         }, true);
-        container.querySelectorAll('li')[i].addEventListener('mouseup', function (event) {
-            console.log('test UP');
+        container.querySelectorAll('li')[i].addEventListener('mousemove', function (event) {
+            var movePoint = event.clientX;
+            direction = startPoint - movePoint;
+            if (startPoint) {
+                this.style.left = - direction + 'px';
+                if (this.previousElementSibling === null) {
+                    var lastStyle = container.querySelector('ul').lastElementChild.style;
+                    lastStyle.opacity = '1';
+                    lastStyle.left = - direction + 'px';
+                } else {
+                    this.previousElementSibling.style.opacity = '1';
+                    this.previousElementSibling.style.left = - direction + 'px';
+                }
+                if (this.nextElementSibling === null) {
+                    var firstStyle = container.querySelector('ul').firstElementChild.style;
+                    firstStyle.opacity = '1';
+                    firstStyle.left = - direction + 'px';
+                } else {
+                    this.nextElementSibling.style.left = - direction + 'px';
+                }
+            }
+            move = true;
+        }, true);
+        container.querySelectorAll('li')[i].addEventListener('mouseup', function () {
+            if (move) {
+                startPoint = 0;
+                for (var j = 0; j < amount; j++) {
+                    var li = container.querySelectorAll('li')[j];
+                    li.style.left = 0;
+                }
+                if (direction > 0) {
+                    left();
+                } else {
+                    right();
+                }
+                direction = 0;
+                move = false;
+            }
         }, true);
         container.querySelectorAll('li')[i].addEventListener('touchstart', function (event) {
-            console.log('test');
+
         }, true);
         container.querySelectorAll('li')[i].addEventListener('touchend', function (event) {
-            console.log('test UP');
+
         }, true);
     }
 
@@ -44,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
 
 });
 
-function right() {
+function right () {
     var container = document.getElementById('slider-1');
     var containerWidth = container.clientWidth;
     if (translationComplete === true) {
@@ -68,7 +106,7 @@ function right() {
     }
 }
 
-function left() {
+function left () {
     var container = document.getElementById('slider-1');
     var containerWidth = container.clientWidth;
     if (translationComplete === true) {
