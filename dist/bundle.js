@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
         container.querySelectorAll('li')[i].addEventListener('mousemove', function (event) {
             var movePoint = event.clientX;
             direction = startPoint - movePoint;
-            if (startPoint) {
+            if (startPoint && translationComplete) {
                 for (var i = 0; i < amount; i++) {
                     container.querySelectorAll('li')[i]
                         .style.transform = 'translate(' + (currTransl[i] - direction ) + 'px)';
@@ -126,7 +126,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         container.querySelectorAll('li')[i].addEventListener('mouseup', function () {
             if (move) {
-                translationComplete = true;
                 if (direction > 0) {
                     left();
                 } else {
