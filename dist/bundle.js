@@ -80,6 +80,7 @@ var translationComplete = true;
 var transitionCompleted = function() {
     translationComplete = true;
 };
+
 var startPoint  = 0;
 var direction;
 var move = false;
@@ -94,10 +95,12 @@ document.addEventListener('DOMContentLoaded', function() {
         container.querySelectorAll('li')[i].addEventListener('webkitTransitionEnd', transitionCompleted, true);
         container.querySelectorAll('li')[i].addEventListener('oTransitionEnd', transitionCompleted, true);
         container.querySelectorAll('li')[i].addEventListener('MSTransitionEnd', transitionCompleted, true);
+
         container.querySelectorAll('li')[i].addEventListener('mousedown', function (event) {
             var field = this.getBoundingClientRect();
             startPoint = event.offsetX + field.x;
         }, true);
+
         container.querySelectorAll('li')[i].addEventListener('mousemove', function (event) {
             var movePoint = event.clientX;
             direction = startPoint - movePoint;
@@ -109,6 +112,18 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             move = true;
         }, true);
+
+        container.querySelectorAll('li')[i].addEventListener('mouseout', function () {
+            if (startPoint) {
+                startPoint = 0;
+                if (direction > 0) {
+                    left();
+                } else {
+                    right();
+                }
+            }
+        });
+
         container.querySelectorAll('li')[i].addEventListener('mouseup', function () {
             if (move) {
                 translationComplete = true;
@@ -122,11 +137,31 @@ document.addEventListener('DOMContentLoaded', function() {
                 move = false;
             }
         }, true);
+
         container.querySelectorAll('li')[i].addEventListener('touchstart', function (event) {
-
+            var movePoint = event.clientX;
+            direction = startPoint - movePoint;
+            if (startPoint) {
+                for (var i = 0; i < amount; i++) {
+                    container.querySelectorAll('li')[i]
+                        .style.transform = 'translate(' + (currTransl[i] - direction ) + 'px)';
+                }
+            }
+            move = true;
         }, true);
-        container.querySelectorAll('li')[i].addEventListener('touchend', function (event) {
 
+        container.querySelectorAll('li')[i].addEventListener('touchend', function () {
+            if (move) {
+                translationComplete = true;
+                if (direction > 0) {
+                    left();
+                } else {
+                    right();
+                }
+                direction = 0;
+                startPoint = 0;
+                move = false;
+            }
         }, true);
     }
 
@@ -140,6 +175,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 
+// Right moving items
 function right () {
     var container = document.getElementById('slider-1');
     var containerWidth = container.clientWidth;
@@ -164,6 +200,7 @@ function right () {
     }
 }
 
+// Left moving items
 function left () {
     var container = document.getElementById('slider-1');
     var containerWidth = container.clientWidth;
