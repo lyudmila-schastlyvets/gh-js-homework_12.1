@@ -79,3 +79,5 @@ img {
       overflow: hidden;
       transition-duration: 1s;
       transition-property: transform; }
+  .single-slider-container .transition li {
+    transition-duration: 0ms; }

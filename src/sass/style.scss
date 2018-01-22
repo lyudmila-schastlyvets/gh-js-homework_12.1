@@ -86,4 +86,11 @@ img {
       transition-property: transform;
     }
   }
+
+  .transition {
+    li {
+      transition-duration: 0ms;
+    }
+  }
 }
+

@@ -29,38 +29,23 @@ document.addEventListener('DOMContentLoaded', function() {
             var movePoint = event.clientX;
             direction = startPoint - movePoint;
             if (startPoint) {
-                this.style.left = - direction + 'px';
-                if (this.previousElementSibling === null) {
-                    var lastStyle = container.querySelector('ul').lastElementChild.style;
-                    lastStyle.opacity = '1';
-                    lastStyle.left = - direction + 'px';
-                } else {
-                    this.previousElementSibling.style.opacity = '1';
-                    this.previousElementSibling.style.left = - direction + 'px';
-                }
-                if (this.nextElementSibling === null) {
-                    var firstStyle = container.querySelector('ul').firstElementChild.style;
-                    firstStyle.opacity = '1';
-                    firstStyle.left = - direction + 'px';
-                } else {
-                    this.nextElementSibling.style.left = - direction + 'px';
+                for (var i = 0; i < amount; i++) {
+                    container.querySelectorAll('li')[i]
+                        .style.transform = 'translate(' + (currTransl[i] - direction ) + 'px)';
                 }
             }
             move = true;
         }, true);
         container.querySelectorAll('li')[i].addEventListener('mouseup', function () {
             if (move) {
-                startPoint = 0;
-                for (var j = 0; j < amount; j++) {
-                    var li = container.querySelectorAll('li')[j];
-                    li.style.left = 0;
-                }
+                translationComplete = true;
                 if (direction > 0) {
                     left();
                 } else {
                     right();
                 }
                 direction = 0;
+                startPoint = 0;
                 move = false;
             }
         }, true);
