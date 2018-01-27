@@ -63,7 +63,7 @@ img {
 
 .single-slider-container {
   width: 400px;
-  margin: 0 auto;
+  margin: 0 auto 10px;
   overflow: hidden;
   border: 1px solid; }
   .single-slider-container ul {
