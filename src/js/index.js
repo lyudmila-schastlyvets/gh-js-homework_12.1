@@ -37,18 +37,18 @@ document.addEventListener('DOMContentLoaded', function () {
                         slider.querySelectorAll('li')[i]
                             .style.transform = 'translate(' + (translatesArray[ind][i] - direction) + 'px)';
                     }
+                    move = true;
                 }
-                move = true;
             }, true);
 
             slider.querySelectorAll('li')[i].addEventListener('mouseout', function () {
-                if (startPoint) {
-                    startPoint = 0;
+                if (startPoint && move) {
                     if (direction > 0) {
                         left(slider, ind, amount);
-                    } else {
+                    } else if (direction < 0) {
                         right(slider, ind, amount);
                     }
+                    startPoint = 0;
                 }
             });
 
@@ -118,7 +118,6 @@ function right (container, position, amount) {
             li.style.transform = 'translate(' + (translatesArray[position][i] + containerWidth) + 'px)';
             translatesArray[position][i] = translatesArray[position][i] + containerWidth;
         }
-
         var outerLi = container.querySelectorAll('li')[outerIndex];
         outerLi.style.transform = 'translate(' + (translatesArray[position][outerIndex] - containerWidth * amount) + 'px)';
         outerLi.style.opacity = '0';
