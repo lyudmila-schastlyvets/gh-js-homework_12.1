@@ -61,7 +61,7 @@ img {
   line-height: 0;
   font-size: 0;
   pointer-events: none;
-  user-select: none;
+  //user-select: none;
 }
 
 .single-slider-container {
@@ -84,6 +84,7 @@ img {
       overflow: hidden;
       transition-duration: 1s;
       transition-property: transform;
+      user-select: none;
     }
   }
 
