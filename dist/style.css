@@ -63,12 +63,12 @@ img {
 .single-slider-container {
   width: 400px;
   margin: 0 auto 10px;
-  overflow: hidden;
-  border: 1px solid; }
+  overflow: hidden; }
   .single-slider-container ul {
     width: 2400px;
     height: 200px;
-    position: relative; }
+    position: relative;
+    border: 1px solid; }
     .single-slider-container ul li {
       width: 400px;
       position: relative;
@@ -79,5 +79,24 @@ img {
       transition-duration: 1s;
       transition-property: transform;
       user-select: none; }
-  .single-slider-container .transition li {
-    transition-duration: 0ms; }
+
+.indicators {
+  padding: 5px 0;
+  display: flex;
+  justify-content: center; }
+  .indicators span {
+    margin: 0 2px;
+    width: 14px;
+    height: 14px;
+    background-color: teal;
+    border-radius: 50%; }
+  .indicators .active:before {
+    position: relative;
+    content: '';
+    display: block;
+    top: 3px;
+    left: 3px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.5); }

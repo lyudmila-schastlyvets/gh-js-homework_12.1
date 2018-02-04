@@ -19,13 +19,16 @@ document.addEventListener('DOMContentLoaded', function () {
     Array.prototype.forEach.call(sliders, function (slider, ind) {
         var containerWidth = slider.clientWidth;
         var amount = slider.querySelectorAll('li').length;
+        var indicatorList = slider.getElementsByClassName('indicators');
         for (var i = 0; i < amount; i++) {
+            var child = document.createElement('span');
+            child.dataset.id = '' + i;
+            indicatorList[0].appendChild(child);
             translatesArray[ind][i] = -containerWidth;
             slider.querySelectorAll('li')[i].addEventListener('transitionend', transitionCompleted, true);
             slider.querySelectorAll('li')[i].addEventListener('webkitTransitionEnd', transitionCompleted, true);
             slider.querySelectorAll('li')[i].addEventListener('oTransitionEnd', transitionCompleted, true);
             slider.querySelectorAll('li')[i].addEventListener('MSTransitionEnd', transitionCompleted, true);
-
             slider.querySelectorAll('li')[i].addEventListener('mousedown', function (event) {
                 startPoint = event.offsetX + this.getBoundingClientRect().x;
             }, true);
@@ -35,7 +38,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (startPoint && translationComplete) {
                     for (var i = 0; i < amount; i++) {
                         slider.querySelectorAll('li')[i]
+                            .style.transitionDuration = '1s';
+                        slider.querySelectorAll('li')[i]
                             .style.transform = 'translate(' + (translatesArray[ind][i] - direction) + 'px)';
+                        slider.querySelectorAll('li')[i]
+                            .style.opacity = '1';
                     }
                     move = true;
                 }
@@ -89,15 +96,46 @@ document.addEventListener('DOMContentLoaded', function () {
                     move = false;
                 }
             }, true);
-        }
 
-        slider.addEventListener('click', function (event) {
-            if (event.offsetX > 200) {
-                right(slider, ind, amount);
-            } else {
-                left(slider, ind, amount);
-            }
-        });
+            slider.querySelectorAll('li')[i].addEventListener('click', function (event) {
+                if (event.offsetX > 200) {
+                    right(slider, ind, amount);
+                } else {
+                    left(slider, ind, amount);
+                }
+            });
+
+            indicatorList[0].querySelectorAll('span')[i].addEventListener('click', function (event) {
+                var news = parseInt(event.target.dataset.id);
+                for (var k = 0; k < amount; k++) {
+                    indicatorList[0].querySelectorAll('span')[k].classList.remove('active');
+                }
+                event.target.classList.add('active');
+                for (var i = 0; i < amount; i++) {
+                    var li = slider.querySelectorAll('li')[i];
+                    if (news !== 0) {
+                        if (i >= (news - 1)) {
+                            translatesArray[ind][i] = -slider.clientWidth * news;
+                        } else {
+                            translatesArray[ind][i] = slider.clientWidth * amount - slider.clientWidth * news;
+                        }
+                    } else {
+                        translatesArray[ind][i] = 0;
+                        if (i + 1 === amount) {
+                            translatesArray[ind][amount - 1] = -slider.clientWidth * amount;
+                        }
+                    }
+                    li.style.transitionDuration = '0s';
+                    li.style.opacity = '1';
+                    li.style.transform = 'translate(' + (translatesArray[ind][i]) + 'px)';
+                }
+                if (news % amount === 0) {
+                    indexes[ind] = 0;
+                } else {
+                    indexes[ind] = news - 1;
+                }
+            });
+        }
     });
 
 });
@@ -114,10 +152,15 @@ function right (container, position, amount) {
         var outerIndex = (indexes[position]) % amount;
         for (var i = 0; i < amount; i++) {
             var li = container.querySelectorAll('li')[i];
+            li.style.transitionDuration = '1s';
             li.style.opacity = '1';
             li.style.transform = 'translate(' + (translatesArray[position][i] + containerWidth) + 'px)';
             translatesArray[position][i] = translatesArray[position][i] + containerWidth;
         }
+        for (var k = 0; k < amount; k++) {
+            container.querySelectorAll('span')[k].classList.remove('active');
+        }
+        container.querySelectorAll('span')[indexes[position] % amount].classList.add('active');
         var outerLi = container.querySelectorAll('li')[outerIndex];
         outerLi.style.transform = 'translate(' + (translatesArray[position][outerIndex] - containerWidth * amount) + 'px)';
         outerLi.style.opacity = '0';
@@ -134,10 +177,15 @@ function left (container, position, amount) {
         var outerIndex = (indexes[position] - 1) % amount;
         for (var i = 0; i < amount; i++) {
             var li = container.querySelectorAll('li')[i];
+            li.style.transitionDuration = '1s';
             li.style.opacity = '1';
             li.style.transform = 'translate(' + (translatesArray[position][i] - containerWidth) + 'px)';
             translatesArray[position][i] = translatesArray[position][i] - containerWidth;
         }
+        for (var k = 0; k < amount; k++) {
+            container.querySelectorAll('span')[k].classList.remove('active');
+        }
+        container.querySelectorAll('span')[indexes[position] % amount].classList.add('active');
         var outerLi = container.querySelectorAll('li')[outerIndex];
         outerLi.style.transform =
             'translate(' + (translatesArray[position][outerIndex] + containerWidth * amount) + 'px)';
