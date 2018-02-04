@@ -188,7 +188,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     var li = slider.querySelectorAll('li')[i];
                     if (newIndicator !== 0) {
                         if (i >= (newIndicator - 1)) {
-                            translatesArray[ind][i] = -slider.clientWidth * news;
+                            translatesArray[ind][i] = -slider.clientWidth * newIndicator;
                         } else {
                             translatesArray[ind][i] = slider.clientWidth * amount - slider.clientWidth * newIndicator;
                         }
