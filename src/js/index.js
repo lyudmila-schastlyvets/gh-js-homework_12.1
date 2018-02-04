@@ -106,18 +106,18 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
             indicatorList[0].querySelectorAll('span')[i].addEventListener('click', function (event) {
-                var news = parseInt(event.target.dataset.id);
+                var newIndicator = parseInt(event.target.dataset.id);
                 for (var k = 0; k < amount; k++) {
                     indicatorList[0].querySelectorAll('span')[k].classList.remove('active');
                 }
                 event.target.classList.add('active');
                 for (var i = 0; i < amount; i++) {
                     var li = slider.querySelectorAll('li')[i];
-                    if (news !== 0) {
-                        if (i >= (news - 1)) {
+                    if (newIndicator !== 0) {
+                        if (i >= (newIndicator - 1)) {
                             translatesArray[ind][i] = -slider.clientWidth * news;
                         } else {
-                            translatesArray[ind][i] = slider.clientWidth * amount - slider.clientWidth * news;
+                            translatesArray[ind][i] = slider.clientWidth * amount - slider.clientWidth * newIndicator;
                         }
                     } else {
                         translatesArray[ind][i] = 0;
@@ -129,15 +129,17 @@ document.addEventListener('DOMContentLoaded', function () {
                     li.style.opacity = '1';
                     li.style.transform = 'translate(' + (translatesArray[ind][i]) + 'px)';
                 }
-                if (news % amount === 0) {
+                if (newIndicator % amount === 0) {
                     indexes[ind] = 0;
                 } else {
-                    indexes[ind] = news - 1;
+                    indexes[ind] = newIndicator - 1;
+                }
+                if (newIndicator === 0) {
+                    indexes[ind] = amount - 1;
                 }
             });
         }
     });
-
 });
 
 // Right moving items
@@ -160,7 +162,7 @@ function right (container, position, amount) {
         for (var k = 0; k < amount; k++) {
             container.querySelectorAll('span')[k].classList.remove('active');
         }
-        container.querySelectorAll('span')[indexes[position] % amount].classList.add('active');
+        container.querySelectorAll('span')[(indexes[position] + 1) % amount].classList.add('active');
         var outerLi = container.querySelectorAll('li')[outerIndex];
         outerLi.style.transform = 'translate(' + (translatesArray[position][outerIndex] - containerWidth * amount) + 'px)';
         outerLi.style.opacity = '0';
@@ -185,7 +187,7 @@ function left (container, position, amount) {
         for (var k = 0; k < amount; k++) {
             container.querySelectorAll('span')[k].classList.remove('active');
         }
-        container.querySelectorAll('span')[indexes[position] % amount].classList.add('active');
+        container.querySelectorAll('span')[(indexes[position] + 1) % amount].classList.add('active');
         var outerLi = container.querySelectorAll('li')[outerIndex];
         outerLi.style.transform =
             'translate(' + (translatesArray[position][outerIndex] + containerWidth * amount) + 'px)';
