@@ -68,11 +68,14 @@ img {
   margin: 0 auto 10px;
   overflow: hidden;
 
+  .slider-border {
+    border: 1px solid;
+  }
+
   ul {
     width: 2400px;
     height: 200px;
     position: relative;
-    border: 1px solid;
 
     li {
       width: 400px;
